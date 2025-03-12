@@ -10,23 +10,23 @@ Modelo Fisico
 
 Listar todos los libros disponibles
 ```sql
-# SELECT tittle FROM book;
+SELECT tittle FROM book;
 ```
 Buscar libros por género
 ```sql
-# SELECT b.tittle,g.name, FROM book AS b JOIN book_genre AS bg ON b.book_id=bg.book_id JOIN genre AS g ON bg.genre_id=g.genre_id GROUP BY genre_id;
+SELECT b.tittle, g.name FROM book AS b JOIN book_genre AS bg ON b.book_id = bg.book_id JOIN genre AS g ON bg.genre_id = g.genre_id ORDER BY g.name, b.tittle;
 ```
 Obtener información de un libro por ISBN
 ```sql
-# SELECT tittle,edition,publication FROM book WHERE ISBN='consulta deseada';
+SELECT tittle, edition, publication FROM book WHERE ISBN = '9788408014225';  -- Escribe el numero de ISBN que deseas consultar
 ```
 Contar el número de libros en la biblioteca
 ```sql
-# SELECT COUNT(tittle) AS total_libros FROM book;
+SELECT COUNT(tittle) AS total_libros FROM book;
 ```
 Listar todos los autores
 ```sql
-# SELECT name FROM author;
+SELECT name FROM author;
 ```
 Buscar autores por nombre
 ```sql
@@ -166,3 +166,69 @@ FOREIGN KEY (lend_id) REFERENCES lend(lend_id)
 );
 
 SHOW TABLES;
+
+# Datos de la base de datos
+
+INSERT INTO editor (name) VALUES
+('Editorial Planeta'),
+('Editorial Penguin Random House'),
+('Editorial Alianza'),
+('Editorial Santillana'),
+('Editorial Anagrama');
+
+INSERT INTO genre (name) VALUES
+('Ficción'),
+('No Ficción'),
+('Misterio'),
+('Ciencia Ficción'),
+('Fantástico');
+
+INSERT INTO book (tittle, ISBN, status, edition, publication, editor_id, genre_id) VALUES
+('La sombra del viento', '9788408014225', 'Disponible', 1, '2001-03-22', 1, 1),
+('1984', '9780451524935', 'Prestado', 1, '1949-06-08', 2, 2),
+('Cien años de soledad', '9780307474728', 'Disponible', 1, '1967-06-05', 3, 1),
+('El nombre de la rosa', '9788435065167', 'Disponible', 1, '1980-01-01', 4, 3),
+('El retrato de Dorian Gray', '9780141441744', 'Prestado', 1, '1890-06-01', 5, 4);
+
+INSERT INTO book_genre (book_id, genre_id) VALUES
+(1, 1),
+(2, 2),
+(3, 1),
+(4, 3),
+(5, 4);
+
+INSERT INTO author (name, lastname, country) VALUES
+('Carlos', 'Ruiz Zafón', 'España'),
+('George', 'Orwell', 'Reino Unido'),
+('Gabriel García', 'Márquez', 'Colombia'),
+('Umberto', 'Eco', 'Italia'),
+('Oscar', 'Wilde', 'Irlanda');
+
+INSERT INTO book_author (book_id, author_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
+
+INSERT INTO lend (status) VALUES
+('En espera'),
+('Prestado'),
+('Devuelto'),
+('En espera'),
+('Prestado');
+
+INSERT INTO user (name, lastname, direction, city, email, phone, date_register) VALUES
+('Ana', 'García', 'Calle Ficticia 123', 'Madrid', 'ana@gmail.com', 123456789, '2025-03-01'),
+('Luis', 'Martínez', 'Avenida Siempre Viva 456', 'Barcelona', 'luis@mail.com', 987654321, '2025-03-05'),
+('Carlos', 'Hernández', 'Calle del Sol 789', 'Sevilla', 'carlos_hernandez@gmail.com', 456789123, '2025-03-06'),
+('Sara', 'López', 'Calle Luna 101', 'Valencia', 'sara@yahoo.com', 654987321, '2025-03-02'),
+('Marta', 'Pérez', 'Calle Estrella 555', 'Madrid', 'marta@hotmail.com', 321654987, '2025-03-04');
+
+INSERT INTO detail_lend (loan, back, user_id, lend_id) VALUES
+('2025-03-01', '2025-03-10', 1, 1),
+('2025-03-02', '2025-03-11', 2, 2),
+('2025-03-03', '2025-03-12', 3, 3),
+('2025-03-04', '2025-03-13', 4, 4),
+('2025-03-05', '2025-03-14', 5, 5);
+
