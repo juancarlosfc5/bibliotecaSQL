@@ -1,5 +1,11 @@
 # bibliotecaSQL
 
+Modelo conceptual
+![alt text](<Modelo Conceptual.png>)
+
+Modelo Fisico
+![alt text](<Modelo  Fisico.png>)
+
 Listar todos los libros disponibles
 ```sql
 # Introduce aquí las consultas.
